@@ -691,3 +691,204 @@
     .vote-cards  { grid-template-columns: 1fr; }
     .problem-grid { grid-template-columns: 1fr; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   소리함 섹션 — 떠다니는 텍스트 스테이지
+   ═══════════════════════════════════════════════════════════════ */
+
+/* 소리함 전체 섹션 */
+.voices-section {
+    position: relative;
+    min-height: 100dvh;
+    background: var(--bg-dark);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+/* 떠다니는 텍스트가 그려지는 배경 레이어 */
+#voices-stage {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 말풍선 하나 */
+.voice-bubble {
+    position: absolute;
+    font-family: var(--font-body);
+    color: rgba(245, 241, 234, 0.6);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    will-change: transform, opacity;
+
+    /* floatUp 애니메이션 — CSS 변수 --drift로 좌우 흔들림 */
+    animation: floatUp 24s ease-in-out infinite;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    8% {
+        opacity: 1;          /* 페이드인 */
+    }
+    45% {
+        transform: translateY(-42vh) translateX(var(--drift, 0px));
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-85vh) translateX(calc(var(--drift, 0px) * -0.5));
+        opacity: 0;          /* 페이드아웃 */
+    }
+}
+
+/* 소리함 입력 UI — 하단 고정 */
+.voices-ui {
+    position: relative;
+    z-index: 2;
+    padding: 4rem var(--gutter) 3.5rem;
+    background: linear-gradient(
+        to top,
+        rgba(26, 24, 21, 0.95) 0%,
+        rgba(26, 24, 21, 0.6)  60%,
+        transparent            100%
+    );
+}
+
+.voices-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(245, 241, 234, 0.45);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.voices-label::before {
+    content: '';
+    width: 2rem;
+    height: 1px;
+    background: rgba(245, 241, 234, 0.45);
+    flex-shrink: 0;
+}
+
+.voices-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--bg);
+    margin-bottom: 0.75rem;
+}
+.voices-title em {
+    font-style: italic;
+    color: var(--accent-light);
+    font-weight: 500;
+}
+
+.voices-desc {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: rgba(245, 241, 234, 0.55);
+    margin-bottom: 2rem;
+    max-width: 32rem;
+    line-height: 1.65;
+}
+
+/* 입력 폼 */
+.voice-form {
+    display: flex;
+    gap: 0.75rem;
+    max-width: 38rem;
+    flex-wrap: wrap;
+}
+
+.voice-input-wrap {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+}
+
+#voice-input {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.9rem 1.25rem;
+    padding-right: 4rem;           /* 카운터 자리 */
+    background: rgba(245, 241, 234, 0.08);
+    border: 1.5px solid rgba(245, 241, 234, 0.18);
+    color: var(--bg);
+    outline: none;
+    transition: border-color 0.2s;
+    border-radius: 0;
+    -webkit-appearance: none;
+}
+#voice-input::placeholder { color: rgba(245, 241, 234, 0.3); }
+#voice-input:focus         { border-color: rgba(245, 241, 234, 0.5); }
+
+#voice-counter {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: rgba(245, 241, 234, 0.3);
+    pointer-events: none;
+}
+
+#voice-submit {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.9rem 1.5rem;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+#voice-submit:hover:not(:disabled) { background: var(--accent-dark); }
+#voice-submit:disabled             { opacity: 0.5; cursor: not-allowed; }
+
+/* 전송 완료 메시지 */
+#voice-thanks {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-top: 0.75rem;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.4s, transform 0.4s;
+}
+#voice-thanks.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 모바일 */
+@media (max-width: 640px) {
+    .voices-section { min-height: 80dvh; }
+    .voice-form     { flex-direction: column; }
+    #voice-submit   { width: 100%; }
+}
+
+/* prefers-reduced-motion — 말풍선 멈춤 */
+@media (prefers-reduced-motion: reduce) {
+    .voice-bubble { animation: none; opacity: 0.4; }
+}

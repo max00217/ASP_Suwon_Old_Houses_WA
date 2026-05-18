@@ -33,7 +33,7 @@
 <section class="hero">
   <nav class="hero-nav">
     <div><span class="hero-nav-dot"></span>수원 노후주택 사각지대 보고서 · 2026</div>
-    <div>2026 · 아주상상프로젝트 4조 사과식초</div>
+    <div>아주대학교 디지털미디어학과 사과식초 4조</div>
   </nav>
 
   <div class="hero-body container">
@@ -152,8 +152,6 @@
 <section class="photo-section" style="min-height:auto">
   <div class="photo-section__img" style="min-height:520px">
     <img src="./assets/images/fortress.png" alt="수원화성 성곽">
-      <code style="font-size:.6rem;opacity:.5">./assets/images/fortress.png</code>
-    </div>
   </div>
   <div class="photo-section__text">
     <div class="chapter-label">Chapter 03 · 원인</div>
@@ -225,8 +223,6 @@
 <section class="photo-section photo-section--reverse" style="min-height:auto">
   <div class="photo-section__img" style="min-height:580px">
     <img src="./assets/images/contrast.png" alt="광교 신도시와 팔달 원도심 대조">
-      <code style="font-size:.6rem;opacity:.5">./assets/images/contrast.png</code>
-    </div>  
   </div>
   <div class="photo-section__text">
     <div class="chapter-label">Chapter 06 · 비교</div>
@@ -291,11 +287,7 @@
      ════════════════════════════════════════════ -->
 <section class="photo-section photo-section--full">
   <div class="photo-section__img">
-    <img src="./assets/images/door.png" alt="낡은 집 창문·문 클로즈업">
-  </div>
-      낡은 집 창문·문 클로즈업<br>
-      <code style="font-size:.6rem;opacity:.5">./assets/images/door.png</code>
-    </div>
+    <img src="./assets/images/door.png" alt="노후주택 이미지">
   </div>
   <div class="photo-section__text container--narrow">
     <div class="chapter-label">Chapter 08 · 구조</div>
@@ -427,6 +419,45 @@
 </section>
 </article>
 
+<!-- ════════════════════════════════════════════
+     소리함 — 시민 목소리가 떠다니는 섹션
+     ════════════════════════════════════════════ -->
+<section class="voices-section">
+
+  <!-- 떠다니는 텍스트 배경 스테이지 -->
+  <div id="voices-stage" aria-hidden="true"></div>
+
+  <!-- 하단 입력 UI -->
+  <div class="voices-ui container">
+    <div class="voices-label">참여 03 · 소리함</div>
+    <h2 class="voices-title">
+      당신의 목소리를<br>
+      <em>이 공간에 남겨주세요</em>
+    </h2>
+    <p class="voices-desc">
+      노후 주택 문제에 대해 하고 싶은 말, 경험, 한 마디를 입력해 주세요.
+      다른 사람들의 목소리와 함께 이 화면 위를 떠다닙니다.
+    </p>
+
+    <form class="voice-form" id="voice-form" autocomplete="off">
+      <div class="voice-input-wrap">
+        <input
+          type="text"
+          id="voice-input"
+          placeholder="예: 지동에 삽니다. 겨울이 너무 춥습니다."
+          maxlength="60"
+          aria-label="목소리 입력">
+        <span id="voice-counter" aria-live="polite">0 / 60</span>
+      </div>
+      <button type="submit" id="voice-submit">목소리 남기기</button>
+    </form>
+
+    <div id="voice-thanks" role="status">
+      목소리가 등록되었습니다. 잠시 후 화면에 나타납니다 ✓
+    </div>
+  </div>
+</section>
+
 <div class="share-section">
   <p>이 문제를 더 많은 사람들이 알아야 합니다.<br>보고서를 공유해 주세요.</p>
   <button id="share-btn">이 보고서 공유하기</button>
@@ -463,18 +494,20 @@
       </div>
     </div>
     <div class="footer__credit">
-      <div>© 2026 · 아주상상프로젝트 4조 사과식초</div>
+      <div>© 2026 · 아주대학교 디지털미디어학과 사과식초 4조</div>
       <div>다양성과 공존 · 사회적 약자와 사회 안전망</div>
     </div>
   </div>
 </footer>
 
-<!-- JS -->
-<script src="./js/reveal.js"        defer></script>
-<script src="./js/map.js"           defer></script>
-<script src="./js/charts.js"        defer></script>
-<script src="./js/timeline.js"      defer></script>
-<script src="./js/participation.js" defer></script>
+<!-- JS — reveal/map/charts/timeline은 일반 defer -->
+<script src="./js/reveal.js"   defer></script>
+<script src="./js/map.js"      defer></script>
+<script src="./js/charts.js"   defer></script>
+<script src="./js/timeline.js" defer></script>
+
+<!-- participation은 Firebase ESM import 때문에 type="module" 필수 -->
+<script type="module" src="./js/participation.js"></script>
 
 <!-- 문제 카드 / 정책 카드 인라인 렌더 -->
 <script>
