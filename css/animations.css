@@ -1,24 +1,24 @@
 /* ================================================================
-   animations.css — 스크롤 트리거 애니메이션
-   ================================================================ */
+animations.css — 스크롤 트리거 애니메이션
+================================================================ */
 
 /* 기본 페이드업 */
 @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* 스크롤 진입 시 적용되는 클래스 */
 [data-reveal] {
-    opacity: 0;
-    transform: translateY(36px);
-    transition:
-        opacity var(--dur-mid) var(--ease-out),
-        transform var(--dur-mid) var(--ease-out);
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+  opacity var(--dur-mid) var(--ease-out),
+  transform var(--dur-mid) var(--ease-out);
 }
 [data-reveal].revealed {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* stagger 딜레이 */
@@ -32,41 +32,41 @@
 
 /* 시각화 박스 */
 .viz[data-reveal] {
-    transform: translateY(32px);
-    transition-duration: var(--dur-long);
+  transform: translateY(32px);
+  transition-duration: var(--dur-long);
 }
 
 /* 사진 패럴랙스 효과 (JS로 style 직접 조작) */
 .parallax-img {
-    will-change: transform;
-    transition: none;
+  will-change: transform;
+  transition: none;
 }
 
 /* 타임라인은 sections.css 에서 직접 처리 */
 
 /* Leaflet 커스텀 */
 .leaflet-container {
-    font-family: var(--font-body) !important;
-    background: var(--bg) !important;
+  font-family: var(--font-body) !important;
+  background: var(--bg) !important;
 }
 .leaflet-popup-content-wrapper {
-    background: var(--fg);
-    color: var(--bg);
-    border-radius: 2px;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  background: var(--fg);
+  color: var(--bg);
+  border-radius: 2px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
 }
 .leaflet-popup-content {
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    line-height: 1.55;
-    margin: 1rem 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  margin: 1rem 1.25rem;
 }
 .leaflet-popup-content b {
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    color: #e89060;
-    display: block;
-    margin-bottom: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: #e89060;
+  display: block;
+  margin-bottom: 0.4rem;
 }
 .leaflet-popup-tip { background: var(--fg); }
 .leaflet-popup-close-button { color: rgba(245,241,234,0.6) !important; }
