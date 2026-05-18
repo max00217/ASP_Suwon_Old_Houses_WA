@@ -1,0 +1,260 @@
+/* ================================================================
+   layout.css — 섹션, 그리드, 컨테이너
+   ================================================================ */
+
+/* 공통 컨테이너 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+}
+
+.container--narrow {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+}
+
+/* 챕터 공통 */
+.chapter {
+    padding: var(--section-gap) 0;
+    border-top: 1px solid var(--line);
+}
+
+.chapter:first-of-type { border-top: none; }
+
+/* 챕터 레이블 */
+.chapter-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.chapter-label::before {
+    content: '';
+    width: 2rem;
+    height: 1px;
+    background: var(--accent);
+    flex-shrink: 0;
+}
+
+/* 챕터 제목 */
+.chapter-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 2rem;
+    max-width: var(--measure);
+}
+.chapter-title em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 500;
+}
+
+/* 리드 문단 */
+.lead {
+    font-size: clamp(1.1rem, 2vw, 1.25rem);
+    line-height: 1.75;
+    color: var(--fg-muted);
+    max-width: var(--measure);
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+}
+.lead::first-letter {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 700;
+    float: left;
+    line-height: 0.85;
+    margin: 0.15rem 0.5rem 0 0;
+    color: var(--accent);
+}
+
+/* 본문 */
+.chapter p {
+    max-width: var(--measure);
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+}
+.chapter p b, .chapter p strong {
+    font-weight: 700;
+    background: linear-gradient(180deg, transparent 62%, var(--highlight) 62%);
+    padding: 0 0.1em;
+}
+
+/* 인용구 */
+blockquote {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    max-width: var(--measure);
+    margin: 4rem 0;
+    padding-left: 2rem;
+    border-left: 3px solid var(--accent);
+}
+blockquote cite {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-style: normal;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-subtle);
+    margin-top: 1.25rem;
+}
+
+/* 통계 그리드 */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0;
+    margin: 4rem 0;
+    border-top: 1.5px solid var(--fg);
+    border-bottom: 1.5px solid var(--fg);
+    padding: 2.5rem 0;
+}
+.stat-item {
+    padding: 0.5rem 1.5rem;
+    border-left: 1px solid var(--line);
+}
+.stat-item:first-child { border-left: none; padding-left: 0; }
+.stat-num {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.035em;
+    display: block;
+    font-variant-numeric: tabular-nums;
+}
+.stat-num .mini {
+    font-size: 0.35em;
+    color: var(--fg-muted);
+    font-weight: 400;
+    margin-left: 0.1em;
+}
+.stat-desc {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    margin-top: 0.6rem;
+    line-height: 1.6;
+}
+
+/* 빅 스탯 */
+.big-stat {
+    text-align: center;
+    margin: 5rem 0;
+}
+.big-stat-number {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 18vw, 11rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: var(--accent);
+    display: block;
+    font-variant-numeric: tabular-nums;
+}
+.big-stat-number .unit {
+    font-size: 0.28em;
+    color: var(--fg-muted);
+    font-weight: 400;
+}
+.big-stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    margin-top: 1.25rem;
+}
+.big-stat-desc {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    max-width: 28rem;
+    margin: 1.5rem auto 0;
+    color: var(--fg-muted);
+}
+
+/* 시각화 박스 */
+.viz {
+    margin: 4rem calc(var(--gutter) * -1);
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: 0 20px 60px -20px rgba(0,0,0,0.12);
+    overflow: hidden;
+}
+.viz-header {
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+.viz-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+.viz-source {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-subtle);
+}
+.chart-wrap {
+    padding: 2rem;
+    height: 380px;
+    position: relative;
+}
+
+/* 레이어 토글 */
+.layer-toggle {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+}
+.layer-btn {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--fg-muted);
+    cursor: pointer;
+    transition: all var(--dur-short) var(--ease-out);
+}
+.layer-btn:hover { border-color: var(--fg); color: var(--fg); }
+.layer-btn.active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+/* 모바일 */
+@media (max-width: 640px) {
+    .viz { margin: 3rem calc(var(--gutter) * -1); }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat-item { border-left: none; border-top: 1px solid var(--line); padding: 1rem 0.25rem; }
+    .stat-item:first-child { border-top: none; }
+    .chart-wrap { height: 280px; padding: 1rem; }
+    blockquote { padding-left: 1.25rem; margin: 2.5rem 0; }
+}

@@ -1,0 +1,36 @@
+/* ================================================================
+   tokens.css — 디자인 토큰 (색상, 타이포, 간격)
+   여기만 수정하면 전체 스타일이 바뀜
+   ================================================================ */
+:root {
+    /* 색상 */
+    --bg:           #f5f1ea;
+    --bg-off:       #eee9de;
+    --bg-dark:      #1a1815;
+    --fg:           #1a1815;
+    --fg-muted:     #5c574f;
+    --fg-subtle:    #8a8478;
+    --accent:       #c14a2a;
+    --accent-dark:  #8B1A1A;
+    --accent-light: #e89060;
+    --cool:         #2d4a5c;
+    --line:         rgba(26, 24, 21, 0.12);
+    --highlight:    rgba(193, 74, 42, 0.09);
+
+    /* 타이포 */
+    --font-display: 'Pretendard Variable', sans-serif;
+    --font-body:    'Noto Serif KR', serif;
+    --font-mono:    'IBM Plex Mono', monospace;
+
+    /* 레이아웃 */
+    --measure:      42rem;
+    --wide:         64rem;
+    --gutter:       clamp(1.25rem, 4vw, 3rem);
+    --section-gap:  clamp(4rem, 8vw, 7rem);
+
+    /* 애니메이션 */
+    --ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
+    --dur-short:    0.4s;
+    --dur-mid:      0.8s;
+    --dur-long:     1.2s;
+}

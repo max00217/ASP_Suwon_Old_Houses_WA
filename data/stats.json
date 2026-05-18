@@ -1,0 +1,45 @@
+{
+  "summary": {
+    "avg_age_years": 31.7,
+    "old_housing_ratio": 18.9,
+    "suwon_vs_gyeonggi": 1.0,
+    "regulation_population": 107000,
+    "annual_support_quota": 30,
+    "total_supported": 2099,
+    "energy_savings_pct": 13.1
+  },
+  "districts": [
+    { "name": "팔달구", "old_index": 197.1, "elder_ratio": 17.0, "population": 208817, "blind_spot": 85, "color": "#8B1A1A" },
+    { "name": "장안구", "old_index": 170.7, "elder_ratio": 16.4, "population": 280812, "blind_spot": 68, "color": "#c14a2a" },
+    { "name": "권선구", "old_index": 138.7, "elder_ratio": 14.9, "population": 370600, "blind_spot": 55, "color": "#e89060" },
+    { "name": "영통구", "old_index": 72.7,  "elder_ratio": 9.6,  "population": 364750, "blind_spot": 22, "color": "#8aa8b3" }
+  ],
+  "comparisons": [
+    { "city": "성남시", "ratio": 35.9, "note": "1기 신도시 + 구시가지" },
+    { "city": "수원시", "ratio": 18.9, "note": "경기도 평균 상회", "highlight": true },
+    { "city": "경기도 평균", "ratio": 17.9, "note": "" },
+    { "city": "용인시", "ratio": 5.8,  "note": "신규 택지 개발 위주" },
+    { "city": "화성시", "ratio": 5.0,  "note": "동탄 신도시 등 신축" }
+  ],
+  "problems": [
+    { "icon": "🏚", "title": "이중 노화", "desc": "건물 노후화와 거주자 고령화가 동시 진행. 단열 불량으로 한랭·온열 질환 취약, 사회적 고립(고독사) 위험." },
+    { "icon": "🔥", "title": "재난 취약성", "desc": "좁은 골목에 소방차 진입 불가. 가연성 외장재·스프링클러 부재로 대형 화재 위험 상시 존재." },
+    { "icon": "🏘", "title": "도시 슬럼화", "desc": "방치된 빈집·노후 주택이 범죄 온상. 저층 주거지 밀집 지역 주거침입 범죄 발생률 높음." },
+    { "icon": "⚡", "title": "에너지 낭비", "desc": "노후 주택 집수리 후 에너지 사용량 13.1% 감소. 역으로 노후 주택의 탄소 배출·에너지 낭비 심각." }
+  ],
+  "policy_issues": [
+    { "title": "주거 양극화", "desc": "재개발·재건축이 아파트 위주 — 저층 빌라·단독주택 밀집 지역은 사업성 부족으로 소외." },
+    { "title": "젠트리피케이션", "desc": "팔달구 고령층(17%)은 수억 원 분담금 감당 불가. 정비 후 원주민 이탈 위험." },
+    { "title": "인프라 한계", "desc": "불규칙한 필지·좁은 도로로 주차장·공원 확충 어려움. 개별 신축 시 난개발 우려." },
+    { "title": "신청제의 함정", "desc": "집수리 지원이 수요자 신청 기반. 정보 접근 어려운 고령층은 지원 존재 자체를 모름." }
+  ],
+  "timeline": [
+    { "year": 1997, "event": "수원화성 유네스코 세계문화유산 등재", "type": "heritage" },
+    { "year": 2008, "event": "역사문화환경 보존지역 전면 지정 — 53,000가구·107,000명 영향", "type": "regulation" },
+    { "year": 2019, "event": "새빛하우스 집수리 지원사업 출범", "type": "support" },
+    { "year": 2022, "event": "수원시정연구원 '수원형 집수리사업 정책방향' 보고서 발간", "type": "research" },
+    { "year": 2023, "event": "고도제한 일부 완화 — 200~500m 구역 건축물 4,408개 높이 제한 해제", "type": "regulation" },
+    { "year": 2024, "event": "재개발·재건축 후보지 30곳 선정. 수원시, 주거복지 플랫폼 구축 계획 명시", "type": "support" },
+    { "year": 2025, "event": "새빛하우스 누적 지원 2,099호 달성. 주민 체감 변화는 여전히 제한적", "type": "support" }
+  ]
+}

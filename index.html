@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="수원시 노후주택 복지 사각지대 데이터 저널리즘 보고서 — 사과식초 4조">
+<meta property="og:title"       content="보이지 않던 집 — 수원 노후주택 사각지대">
+<meta property="og:description" content="수원화성이 세계문화유산이 되는 동안, 성곽 아래 마을은 시간이 멈췄다.">
+<meta property="og:type"        content="article">
+<title>보이지 않던 집 — 수원 노후주택 사각지대</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<link rel="stylesheet" href="./css/tokens.css">
+<link rel="stylesheet" href="./css/base.css">
+<link rel="stylesheet" href="./css/layout.css">
+<link rel="stylesheet" href="./css/sections.css">
+<link rel="stylesheet" href="./css/animations.css">
+</head>
+<body>
+
+<div class="progress-bar" id="progress-bar"></div>
+
+<!-- ════════════════════════════════════════════
+     HERO
+     ════════════════════════════════════════════ -->
+<section class="hero">
+  <nav class="hero-nav">
+    <div><span class="hero-nav-dot"></span>수원 노후주택 사각지대 보고서 · 2026</div>
+    <div>아주대학교 디지털미디어학과 사과식초 4조</div>
+  </nav>
+
+  <div class="hero-body container">
+    <p class="hero-kicker">다양성과 공존 · 사회적 약자와 사회 안전망</p>
+    <h1 class="hero-title">
+      <span class="strike">보존</span>된 도시,<br>
+      낡아가는 <span class="accent-word">삶</span>.
+    </h1>
+    <p class="hero-subtitle">
+      수원화성은 세계문화유산이 되었다.<br>
+      성곽 아래 마을은 시간이 멈췄다.<br>
+      이 보고서는 그 멈춤 속에서 살아가는 사람들의 이야기다.
+    </p>
+  </div>
+
+  <div class="hero-meta container">
+    <div class="hero-meta-item">발행<strong>2026.04</strong></div>
+    <div class="hero-meta-item">대상 지역<strong>수원시 4개 구</strong></div>
+    <div class="hero-meta-item">분석 범위<strong>44개 행정동</strong></div>
+    <div class="hero-meta-item">노후주택 비율<strong>18.9%</strong></div>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">scroll</div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CH 1 — 풀스크린 도입 (사진 배경)
+     ════════════════════════════════════════════ -->
+<section class="photo-section photo-section--full">
+  <div class="photo-section__img">
+    <div class="img-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+      팔달구 원도심 골목 사진<br>
+      <code style="font-size:.6rem;opacity:.5">./assets/images/haenggung.jpg</code>
+    </div>
+  </div>
+  <div class="photo-section__text container--narrow">
+    <div class="chapter-label">Chapter 01 · 도입</div>
+    <h2 class="chapter-title">낡은 집에 사는 건<br><em>가장 약한 사람들</em>이다</h2>
+    <blockquote>
+      "물이 많이 새는 데도 증축은 안 되고<br>
+      개축도 안 되니까 그냥<br>
+      조금씩 손봐가면서…"
+      <cite>— 지동 주민, 2023년 인터뷰 (YTN)</cite>
+    </blockquote>
+    <p class="lead">
+      수원시 저층주택의 평균 건축연한은 31.7년.
+      서울보다 높다. 수원 노후주택 비율은 18.9%로
+      경기도 평균 17.9%를 웃돈다.
+    </p>
+  </div>
+</section>
+
+<article>
+
+<!-- ════════════════════════════════════════════
+     CH 2 — 핵심 통계
+     ════════════════════════════════════════════ -->
+<section class="chapter">
+<div class="container">
+  <div class="chapter-label">Chapter 02 · 규모</div>
+  <h2 class="chapter-title">숫자가 먼저<br><em>진실</em>을 말한다</h2>
+
+  <p class="lead">
+    수원시 노후주택 비율은 경기도 평균을 상회한다.
+    그러나 숫자 너머에는 단순한 집의 노후화가 아닌,
+    사람의 노후화가 함께 진행되고 있다.
+  </p>
+
+  <div class="big-stat" data-reveal>
+    <span class="big-stat-number" data-count="18.9">0<span class="unit">%</span></span>
+    <div class="big-stat-label">수원시 노후주택 비율 (2024년 기준)</div>
+    <p class="big-stat-desc">
+      경기도 평균 17.9%를 상회.
+      성남시(35.9%)에 이어 경기도 내 높은 수준이며
+      신도시 위주인 용인(5.8%)·화성(5.0%)과 대조된다.
+    </p>
+  </div>
+
+  <div class="stat-grid" data-reveal>
+    <div class="stat-item">
+      <span class="stat-num" data-count="197">0<span class="mini"></span></span>
+      <div class="stat-desc">팔달구 노후도 지수<br>(4개 구 중 최고)</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="17">0<span class="mini">%</span></span>
+      <div class="stat-desc">팔달구 65세 이상<br>고령인구 비율</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="107000">0<span class="mini">명</span></span>
+      <div class="stat-desc">화성 보존지역<br>거주 인구</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="30">0<span class="mini">호</span></span>
+      <div class="stat-desc">연간 집수리 지원<br>수용 한도</div>
+    </div>
+  </div>
+
+  <!-- 경기도 비교 차트 -->
+  <div class="viz" data-reveal>
+    <div class="viz-header">
+      <div class="viz-title">경기도 주요 도시 노후주택 비율 비교</div>
+      <div class="viz-source">Source · 국토교통부 주택현황 2024</div>
+    </div>
+    <div class="chart-wrap"><canvas id="compChart"></canvas></div>
+  </div>
+
+  <p>
+    수원시 저층주택의 약 <b>88.6%가 20년 이상 된 노후 주택</b>이다.
+    재개발·재건축이 아파트 위주로만 진행되어,
+    정작 정비가 가장 시급한 저층 빌라·단독주택 밀집 지역은
+    사업성 부족으로 소외되어 있다.
+  </p>
+</div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CH 3 — 사진 + 타임라인 (좌우 분할)
+     ════════════════════════════════════════════ -->
+<section class="photo-section" style="min-height:auto">
+  <div class="photo-section__img" style="min-height:520px">
+    <div class="img-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+      수원화성 성곽 사진<br>
+      <code style="font-size:.6rem;opacity:.5">./assets/images/fortress.jpg</code>
+    </div>
+  </div>
+  <div class="photo-section__text">
+    <div class="chapter-label">Chapter 03 · 원인</div>
+    <h2 class="chapter-title">왜 이렇게<br><em>됐는가</em></h2>
+    <p style="color:var(--fg-muted);font-size:.9rem;margin-bottom:1.5rem">
+      수원화성 고도제한이 만든 규제의 연대기
+    </p>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CH 4 — 4대 문제점 카드
+     ════════════════════════════════════════════ -->
+<section class="chapter section-accent">
+<div class="container">
+  <div class="chapter-label">Chapter 04 · 문제</div>
+  <h2 class="chapter-title">노후 주택이 만드는<br><em>4가지 위협</em></h2>
+  <p class="lead">
+    낡은 집 안에서는 낡은 집만의 문제가 생기는 게 아니다.
+    그 집에 사는 사람의 건강과 안전, 그리고 도시 전체의 품격이 함께 낡아간다.
+  </p>
+
+  <!-- JS가 stats.json에서 읽어 렌더링 -->
+  <div class="problem-grid" id="problem-grid"></div>
+</div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CH 5 — 지도
+     ════════════════════════════════════════════ -->
+<section class="chapter">
+<div class="container">
+  <div class="chapter-label">Chapter 05 · 지도</div>
+  <h2 class="chapter-title">지도 위에서<br><em>사각지대</em>는 명확해진다</h2>
+
+  <p class="lead">
+    노후도가 높은 동네, 취약계층이 많은 동네, 지원이 닿지 않는 동네.
+    이 셋이 겹치는 곳이 수원의 진짜 사각지대다.
+    붉은 경계선은 수원화성 역사문화환경보존지역이다.
+  </p>
+
+  <div class="viz" data-reveal>
+    <div class="viz-header">
+      <div class="viz-title">수원시 44개 행정동 사각지대 종합 점수</div>
+      <div class="viz-source">Source · 공공데이터포털 + SRI 2025 + 수원화성 경계 GIS</div>
+    </div>
+    <div class="layer-toggle" role="group">
+      <button class="layer-btn active" data-layer="blind_spot">사각지대 점수</button>
+      <button class="layer-btn" data-layer="old_housing">노후도</button>
+      <button class="layer-btn" data-layer="vulnerable">취약계층</button>
+      <button class="layer-btn" data-layer="support">지원 도달률</button>
+    </div>
+    <div id="map"></div>
+  </div>
+
+  <p>
+    붉게 칠해진 팔달구 원도심 — 지동, 행궁동, 매산동, 우만1동 일대가
+    모든 지표에서 가장 심각하다.
+    수원화성이 가장 아름답게 보존된 그 일대가,
+    <b>사람들이 가장 낡은 집에서 살아가는 곳</b>이기도 하다.
+  </p>
+</div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CH 6 — 구별 비교 + 사진 (역배치)
+     ════════════════════════════════════════════ -->
+<section class="photo-section photo-section--reverse" style="min-height:auto">
+  <div class="photo-section__img" style="min-height:580px">
+    <div class="img-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+      광교·영통 신도시 vs 팔달 원도심 대조 사진<br>
+      <code style="font-size:.6rem;opacity:.5">./assets/images/contrast.jpg</code>
+    </div>
+  </div>
+  <div class="photo-section__text">
+    <div class="chapter-label">Chapter 06 · 비교</div>
+    <h2 class="chapter-title">같은 수원,<br><em>다른 수원</em></h2>
+    <p style="color:var(--fg-muted);font-size:.9rem;margin-bottom:1rem">
+      4개 구 노후도 종합 지수 — 팔달구 197 vs 영통구 73
+    </p>
+    <div class="viz" style="margin:0" data-reveal>
+      <div class="viz-header">
+        <div class="viz-title">구별 노후도 종합 지수</div>
+        <div class="viz-source">자료조사 · 2024</div>
+      </div>
+      <div class="chart-wrap" style="height:220px"><canvas id="districtChart"></canvas></div>
+    </div>
+    <div class="viz" style="margin:1rem 0 0" data-reveal>
+      <div class="viz-header">
+        <div class="viz-title">65세 이상 고령인구 비율</div>
+        <div class="viz-source">통계청 KOSIS · 2024</div>
+      </div>
+      <div class="chart-wrap" style="height:200px"><canvas id="elderChart"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CH 7 — 정책 한계
+     ════════════════════════════════════════════ -->
+<section class="chapter">
+<div class="container">
+  <div class="chapter-label">Chapter 07 · 정책 한계</div>
+  <h2 class="chapter-title">지원은 있다.<br><em>닿지 않을 뿐.</em></h2>
+
+  <p class="lead">
+    새빛하우스 집수리 지원사업은 존재한다.
+    그러나 수요자 신청 기반이다.
+    정보에 접근하기 어려운 고령 1인 가구에게 이 사업은 존재하지 않는 것과 같다.
+  </p>
+
+  <!-- 정책 한계 4가지 — JS로 렌더 -->
+  <div class="problem-grid" id="policy-grid"></div>
+
+  <blockquote>
+    지금까지의 집수리 사업은 주로 수요자 신청 기반으로 운영되고,
+    지원 대상지 선정 기준 또한 노후도나 사회적 취약성에만 국한되어
+    <em>지역적 특성이 충분히 고려되지 못하는 한계</em>가 존재한다.
+    <cite>— 저층주거지 유형화에 따른 집수리사업 방향 제안, 한국주거학회</cite>
+  </blockquote>
+
+  <div class="big-stat" data-reveal>
+    <span class="big-stat-number" data-count="13.1">0<span class="unit">%</span></span>
+    <div class="big-stat-label">집수리 후 에너지 사용량 감소 — 수원시정연구원</div>
+    <p class="big-stat-desc">
+      집수리만 해도 에너지 비용이 줄어든다.
+      지원을 받지 못하는 가구는 그만큼 더 많은 비용을 쓰고 있다.
+    </p>
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CH 8 — 풀스크린 + 결론
+     ════════════════════════════════════════════ -->
+<section class="photo-section photo-section--full">
+  <div class="photo-section__img">
+    <div class="img-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+      낡은 집 창문·문 클로즈업<br>
+      <code style="font-size:.6rem;opacity:.5">./assets/images/door.jpg</code>
+    </div>
+  </div>
+  <div class="photo-section__text container--narrow">
+    <div class="chapter-label">Chapter 08 · 구조</div>
+    <h2 class="chapter-title">이것은<br><em>개인의 문제가 아니다</em></h2>
+    <p class="lead">
+      노후 주택 거주자들을 한꺼번에 신축 아파트로 이주시킨다고 해결되지 않는다.
+      공실이 된 노후 주택은 새로운 문제로 직결된다.
+    </p>
+    <p>
+      수원화성 고도제한, 군공항 비행안전구역, 불규칙한 필지 구획—
+      이 문제는 처음부터 <b>구조가 만들어낸 문제</b>다.
+      구조가 만든 문제는 구조적 해결책이 필요하다.
+    </p>
+    <div class="big-stat" data-reveal style="margin-top:3rem;text-align:left">
+      <span class="big-stat-number" data-count="2099"
+            style="font-size:clamp(3rem,10vw,6rem)">
+        0<span class="unit">호</span>
+      </span>
+      <div class="big-stat-label" style="margin-top:.75rem">새빛하우스 누적 지원 (2025년)</div>
+      <p class="big-stat-desc" style="margin:1rem 0 0;text-align:left;color:rgba(245,241,234,.7)">
+        수원시 20년 이상 노후 저층주택의 88.6%—
+        <b style="color:rgba(245,241,234,.9)">수천 호가 여전히 지원 밖에 있다.</b>
+      </p>
+    </div>
+  </div>
+</section>
+
+</article>
+
+<!-- ════════════════════════════════════════════
+     CH 9 — 내 동네 찾기 (시민 참여)
+     ════════════════════════════════════════════ -->
+<section class="section-dark">
+<div class="container">
+  <div class="chapter-label">참여 01 · 내 동네</div>
+  <h2 class="chapter-title" style="color:var(--bg)">
+    우리 동네는<br><em style="color:var(--accent-light)">어떤 상황일까?</em>
+  </h2>
+  <p>수원시 44개 행정동 중 동 이름을 입력하면 사각지대 점수를 확인할 수 있습니다.</p>
+
+  <div class="search-box">
+    <input type="text" id="dong-input" list="dong-list"
+           placeholder="예: 지동, 행궁동, 영통1동…">
+    <datalist id="dong-list"></datalist>
+    <button id="dong-search-btn">찾기</button>
+  </div>
+
+  <div class="dong-result" id="dong-result"></div>
+</div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CH 10 — 문제 인식 투표
+     ════════════════════════════════════════════ -->
+<section class="chapter section-accent">
+<div class="container">
+  <div class="chapter-label">참여 02 · 투표</div>
+  <h2 class="chapter-title">어떤 문제가<br><em>가장 시급하다고 생각하십니까?</em></h2>
+  <p class="lead">
+    이 보고서를 읽은 당신의 생각을 알려주세요.
+    가장 심각하다고 느끼는 문제를 선택해 주세요.
+  </p>
+
+  <div class="vote-cards">
+    <div class="vote-card">
+      <div class="vote-icon">🏚</div>
+      <h4>이중 노화 — 안전망 붕괴</h4>
+      <p>건물 노후화 + 거주자 고령화 동시 진행. 한랭·온열 질환, 사회적 고립 위험.</p>
+      <div class="vote-bar-wrap"><div class="vote-bar" data-bar="safety"></div></div>
+      <div class="vote-pct" data-pct="safety">0%</div>
+      <button class="vote-btn" data-vote="safety">이 문제 선택</button>
+    </div>
+    <div class="vote-card">
+      <div class="vote-icon">🔥</div>
+      <h4>화재·붕괴 — 재난 취약성</h4>
+      <p>좁은 골목, 소방차 진입 불가. 가연성 외장재·스프링클러 부재로 대형 화재 위험.</p>
+      <div class="vote-bar-wrap"><div class="vote-bar" data-bar="fire"></div></div>
+      <div class="vote-pct" data-pct="fire">0%</div>
+      <button class="vote-btn" data-vote="fire">이 문제 선택</button>
+    </div>
+    <div class="vote-card">
+      <div class="vote-icon">🏘</div>
+      <h4>도시 슬럼화 — 범죄 증가</h4>
+      <p>방치된 빈집이 범죄 온상. 저층 밀집 지역 주거침입 범죄 발생률 높음.</p>
+      <div class="vote-bar-wrap"><div class="vote-bar" data-bar="slum"></div></div>
+      <div class="vote-pct" data-pct="slum">0%</div>
+      <button class="vote-btn" data-vote="slum">이 문제 선택</button>
+    </div>
+    <div class="vote-card">
+      <div class="vote-icon">⚡</div>
+      <h4>에너지 낭비 — 환경 문제</h4>
+      <p>집수리 후 에너지 13.1% 감소. 노후 주택의 탄소 배출·에너지 비용 부담 심각.</p>
+      <div class="vote-bar-wrap"><div class="vote-bar" data-bar="energy"></div></div>
+      <div class="vote-pct" data-pct="energy">0%</div>
+      <button class="vote-btn" data-vote="energy">이 문제 선택</button>
+    </div>
+  </div>
+
+  <div class="vote-thanks" id="vote-thanks">
+    참여해 주셔서 감사합니다. 이 문제를 함께 알려주세요.
+  </div>
+</div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CH 11 — 제언 + 공유
+     ════════════════════════════════════════════ -->
+<article>
+<section class="chapter">
+<div class="container">
+  <div class="chapter-label">Chapter 09 · 제언</div>
+  <h2 class="chapter-title">보이지 않는 것을<br><em>보이게</em> 만드는 것부터</h2>
+
+  <p class="lead">
+    수원시는 2024년 시행계획에
+    "온라인 주거복지 통합정보 플랫폼 구축"을 전략 과제로 명시했다.
+    이 보고서는 그 첫걸음이 어디서 시작해야 하는지에 대한 제안이다.
+  </p>
+  <p>
+    <b>사전 예방 중심의 접근</b>이 필요하다.
+    신청하지 않아도 사각지대를 먼저 찾아내는 시스템—
+    노후도·취약계층·지원 이력 데이터를 교차 분석해
+    우선순위 지역을 행정이 먼저 파악하고 찾아가는 구조가 요구된다.
+  </p>
+  <p>
+    이 보고서가 그 지도의 초안이다.
+  </p>
+</div>
+</section>
+</article>
+
+<div class="share-section">
+  <p>이 문제를 더 많은 사람들이 알아야 합니다.<br>보고서를 공유해 주세요.</p>
+  <button id="share-btn">이 보고서 공유하기</button>
+</div>
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer__inner">
+    <h3>데이터 출처 및 참고자료</h3>
+    <div class="footer__sources">
+      <div>
+        <strong>공공데이터포털</strong>
+        수원시 주택현황<br>
+        국민기초생활수급자 현황<br>
+        건축물대장 (세움터)
+      </div>
+      <div>
+        <strong>수원시정연구원 (SRI)</strong>
+        수원형 집수리사업 정책방향 (2022)<br>
+        공간빅데이터 군집별 지역특성 분석 (2025)
+      </div>
+      <div>
+        <strong>통계청 KOSIS</strong>
+        수원시 동별 인구 현황<br>
+        고령인구 · 1인 가구 통계
+      </div>
+      <div>
+        <strong>기타</strong>
+        새빛하우스 (suzip.or.kr)<br>
+        한국주거학회 집수리사업 논문<br>
+        수원화성 GIS 경계 (문화재청)
+      </div>
+    </div>
+    <div class="footer__credit">
+      <div>© 2026 · 아주대학교 디지털미디어학과 사과식초 4조</div>
+      <div>다양성과 공존 · 사회적 약자와 사회 안전망</div>
+    </div>
+  </div>
+</footer>
+
+<!-- JS -->
+<script src="./js/reveal.js"        defer></script>
+<script src="./js/map.js"           defer></script>
+<script src="./js/charts.js"        defer></script>
+<script src="./js/timeline.js"      defer></script>
+<script src="./js/participation.js" defer></script>
+
+<!-- 문제 카드 / 정책 카드 인라인 렌더 -->
+<script>
+async function renderCards() {
+  const res  = await fetch('./data/stats.json');
+  const data = await res.json();
+
+  // 문제 카드
+  const pg = document.getElementById('problem-grid');
+  if (pg) {
+    pg.innerHTML = data.problems.map((p, i) => `
+      <div class="problem-card" data-reveal data-delay="${i+1}">
+        <div class="problem-icon">${p.icon}</div>
+        <h3>${p.title}</h3>
+        <p>${p.desc}</p>
+      </div>`).join('');
+
+    // reveal observer 재등록
+    pg.querySelectorAll('[data-reveal]').forEach(el => {
+      new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
+      }, { threshold: 0.15 }).observe(el);
+    });
+  }
+
+  // 정책 한계 카드
+  const polg = document.getElementById('policy-grid');
+  if (polg) {
+    polg.innerHTML = data.policy_issues.map((p, i) => `
+      <div class="problem-card" data-reveal data-delay="${i+1}">
+        <div class="problem-icon">⚠️</div>
+        <h3>${p.title}</h3>
+        <p>${p.desc}</p>
+      </div>`).join('');
+
+    polg.querySelectorAll('[data-reveal]').forEach(el => {
+      new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
+      }, { threshold: 0.15 }).observe(el);
+    });
+  }
+}
+document.addEventListener('DOMContentLoaded', renderCards);
+</script>
+
+</body>
+</html>
