@@ -685,6 +685,21 @@ sections.css — 히어로, 풀스크린 사진 섹션, 타임라인, 푸터
 }
 #share-btn:hover { background: var(--accent); }
 
+#report-btn {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 1rem 2.5rem;
+  background: var(--fg);
+  background-color: rgba(193,74,42,0.9);
+  color: var(--bg);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#report-btn:hover { background: var(--accent); }
+
 /* 모바일 */
 @media (max-width: 640px) {
   .result-grid { grid-template-columns: repeat(2, 1fr); }
