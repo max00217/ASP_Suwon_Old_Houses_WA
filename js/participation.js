@@ -17,14 +17,23 @@
 /* ──────────────────────────────────────────────────────────────
    ★ Firebase 설정값 — 본인 프로젝트 값으로 교체 필요
    ────────────────────────────────────────────────────────────── */
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAKP2b_cT4PCY8Zqus6NGRG9vkGNcYPCH4",
-    authDomain: "suwon-housing-report.firebaseapp.com",
-    projectId: "suwon-housing-report",
-    storageBucket: "suwon-housing-report.firebasestorage.app",
-    messagingSenderId: "162387866253",
-    appId: "1:162387866253:web:519ad31b1b72d5cf34a8c4"
+  apiKey: "AIzaSyAKP2b_cT4PCY8Zqus6NGRG9vkGNcYPCH4",
+  authDomain: "suwon-housing-report.firebaseapp.com",
+  projectId: "suwon-housing-report",
+  storageBucket: "suwon-housing-report.firebasestorage.app",
+  messagingSenderId: "162387866253",
+  appId: "1:162387866253:web:519ad31b1b72d5cf34a8c4"
 };
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 /* ──────────────────────────────────────────────────────────────
    Firebase SDK 임포트 (ESM CDN)
    index.html의 <script type="module"> 안에서 로드해야 함
