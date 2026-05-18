@@ -1,22 +1,9 @@
 /* ================================================================
-   participation.js — Firebase 연동 버전
-
-   ★ 설정 방법:
-     1. firebase.google.com → 프로젝트 생성
-     2. Realtime Database 활성화 (asia-southeast1)
-     3. 아래 FIREBASE_CONFIG 값을 본인 프로젝트 설정값으로 교체
-
-   기능:
-     1. 내 동네 찾기
-     2. 투표 (Firebase 실시간 집계)
-     3. 소리함 (입력 → Firebase 저장 → 화면에 떠다님)
-     4. 공유하기
+   participation.js — Firebase 연동 완성본
+   ★ 아래 firebaseConfig 값만 본인 것으로 교체하면 됨
    ================================================================ */
-'use strict';
 
-/* ──────────────────────────────────────────────────────────────
-   Firebase SDK (CDN ESM — 이 방식만 사용)
-   ────────────────────────────────────────────────────────────── */
+/* ── import는 반드시 파일 맨 위 ─────────────────────────────── */
 import { initializeApp }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import {
@@ -24,9 +11,7 @@ import {
     onValue, push, serverTimestamp, query, limitToLast
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-/* ──────────────────────────────────────────────────────────────
-   Firebase 설정값
-   ────────────────────────────────────────────────────────────── */
+/* ── ★ 여기만 교체 ──────────────────────────────────────────── */
 const firebaseConfig = {
     apiKey:            "AIzaSyAKP2b_cT4PCY8Zqus6NGRG9vkGNcYPCH4",
     authDomain:        "suwon-housing-report.firebaseapp.com",
@@ -37,21 +22,25 @@ const firebaseConfig = {
     appId:             "1:162387866253:web:519ad31b1b72d5cf34a8c4"
 };
 
+/* ── Firebase 초기화 ─────────────────────────────────────────── */
 const app = initializeApp(firebaseConfig);
 const db  = getDatabase(app);
-/* ──────────────────────────────────────────────────────────────
-   전역 상태
-   ────────────────────────────────────────────────────────────── */
+
+/* ── 전역 상태 ───────────────────────────────────────────────── */
 let dongData  = null;
 let userVoted = false;
 
-/* ──────────────────────────────────────────────────────────────
+/* ══════════════════════════════════════════════════════════════
    진입점
-   ────────────────────────────────────────────────────────────── */
+   ══════════════════════════════════════════════════════════════ */
 async function initParticipation() {
-    const res = await fetch('./data/suwon_dong_data.geojson');
-    const gj  = await res.json();
-    dongData  = gj.features.map(f => f.properties);
+    try {
+        const res = await fetch('./data/suwon_dong_data.geojson');
+        const gj  = await res.json();
+        dongData  = gj.features.map(f => f.properties);
+    } catch(e) {
+        console.warn('GeoJSON 로드 실패:', e);
+    }
 
     initSearch();
     initVote();
@@ -66,7 +55,7 @@ function initSearch() {
     const input  = document.getElementById('dong-input');
     const btn    = document.getElementById('dong-search-btn');
     const result = document.getElementById('dong-result');
-    if (!input || !btn || !result) return;
+    if (!input || !btn || !result || !dongData) return;
 
     const datalist = document.getElementById('dong-list');
     if (datalist) {
@@ -139,52 +128,59 @@ function initSearch() {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   2. 투표 — Firebase 실시간 집계
+   2. 투표 — Firebase 실시간
    ══════════════════════════════════════════════════════════════ */
 function initVote() {
     const btns = document.querySelectorAll('.vote-btn');
     if (!btns.length) return;
 
-    /* 실시간 구독 — 다른 사람 투표도 즉시 반영 */
+    /* 실시간 집계 구독 */
     onValue(ref(db, 'votes'), snapshot => {
         const data  = snapshot.val() || {};
-        const total = Object.values(data).reduce((s, v) => s + v, 0);
+        const total = Object.values(data).reduce((s, v) => s + (v || 0), 0);
         if (!total) return;
+
         Object.entries(data).forEach(([key, val]) => {
             const bar = document.querySelector(`[data-bar="${key}"]`);
             const pct = document.querySelector(`[data-pct="${key}"]`);
             if (!bar || !pct) return;
-            const p = Math.round(val / total * 100);
+            const p = Math.round((val || 0) / total * 100);
             bar.style.width = p + '%';
             pct.textContent = p + '%';
         });
     });
 
-    /* 클릭 시 Firebase에 +1 */
+    /* 투표 버튼 클릭 */
     btns.forEach(btn => {
         btn.addEventListener('click', async () => {
             if (userVoted) return;
             const key = btn.dataset.vote;
-            await runTransaction(ref(db, `votes/${key}`), v => (v || 0) + 1);
-            userVoted = true;
-            btns.forEach(b => {
-                b.disabled      = true;
-                b.style.opacity = b.dataset.vote === key ? '1' : '0.35';
-            });
-            document.getElementById('vote-thanks')?.classList.add('visible');
+
+            try {
+                await runTransaction(ref(db, `votes/${key}`), v => (v || 0) + 1);
+                userVoted = true;
+                btns.forEach(b => {
+                    b.disabled      = true;
+                    b.style.opacity = b.dataset.vote === key ? '1' : '0.35';
+                });
+                const thanks = document.getElementById('vote-thanks');
+                if (thanks) thanks.classList.add('visible');
+            } catch(e) {
+                console.error('투표 실패:', e);
+                alert('투표 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+            }
         });
     });
 }
 
 /* ══════════════════════════════════════════════════════════════
-   3. 소리함 — 입력 + 떠다니는 텍스트
+   3. 소리함
    ══════════════════════════════════════════════════════════════ */
 function initVoices() {
     initVoiceInput();
     initFloatingVoices();
 }
 
-/* 입력 폼 처리 */
 function initVoiceInput() {
     const form    = document.getElementById('voice-form');
     const input   = document.getElementById('voice-input');
@@ -196,9 +192,8 @@ function initVoiceInput() {
     const MAX = 60;
 
     input.addEventListener('input', () => {
-        const len = Math.min(input.value.length, MAX);
         input.value = input.value.slice(0, MAX);
-        if (counter) counter.textContent = `${len} / ${MAX}`;
+        if (counter) counter.textContent = `${input.value.length} / ${MAX}`;
     });
 
     form.addEventListener('submit', async e => {
@@ -220,8 +215,8 @@ function initVoiceInput() {
                 thanks.classList.add('visible');
                 setTimeout(() => thanks.classList.remove('visible'), 3000);
             }
-        } catch (err) {
-            console.error('소리함 저장 실패:', err);
+        } catch(e) {
+            console.error('소리함 저장 실패:', e);
             alert('전송에 실패했습니다. 잠시 후 다시 시도해 주세요.');
         } finally {
             submit.disabled    = false;
@@ -230,28 +225,26 @@ function initVoiceInput() {
     });
 }
 
-/* 떠다니는 텍스트 렌더링 */
 function initFloatingVoices() {
     const stage = document.getElementById('voices-stage');
     if (!stage) return;
 
     const pool = [];
 
-    /* 최근 40개 실시간 구독 */
     onValue(query(ref(db, 'voices'), limitToLast(40)), snapshot => {
         const data = snapshot.val();
+
+        /* 기존 말풍선 제거 */
+        pool.forEach(el => el.remove());
+        pool.length = 0;
+
         if (!data) return;
 
         const texts = Object.values(data)
             .map(v => v.text)
             .filter(Boolean)
-            .reverse();   /* 최신순 */
+            .reverse();
 
-        /* 기존 말풍선 정리 */
-        pool.forEach(el => el.remove());
-        pool.length = 0;
-
-        /* 순차 등장 */
         texts.forEach((text, i) => {
             setTimeout(() => {
                 const bubble = spawnBubble(stage, text);
@@ -261,28 +254,25 @@ function initFloatingVoices() {
     });
 }
 
-/* 말풍선 하나 생성 */
 function spawnBubble(stage, text) {
     const el = document.createElement('span');
     el.className   = 'voice-bubble';
     el.textContent = text;
 
-    /* 무작위 위치·크기·속도·방향 */
-    const x     = 5 + Math.random() * 85;            /* 5~90% */
-    const y     = 60 + Math.random() * 30;           /* 60~90% 에서 시작 (아래) */
-    const scale = 0.7 + Math.random() * 0.6;         /* 0.7~1.3 */
-    const dur   = 20  + Math.random() * 15;          /* 20~35초 */
-    const delay = Math.random() * 5;                 /* 0~5초 */
-    const drift = (Math.random() - 0.5) * 15;        /* 좌우 흔들림 */
-    const op    = 0.35 + Math.random() * 0.45;       /* 투명도 0.35~0.8 */
+    const x     = 5  + Math.random() * 85;
+    const y     = 60 + Math.random() * 30;
+    const scale = 0.7 + Math.random() * 0.6;
+    const dur   = 20  + Math.random() * 15;
+    const delay = Math.random() * 5;
+    const drift = (Math.random() - 0.5) * 15;
+    const op    = 0.35 + Math.random() * 0.45;
 
     el.style.cssText = `
-        left:       ${x}%;
-        top:        ${y}%;
-        font-size:  ${scale}rem;
-        opacity:    ${op};
-        --drift:    ${drift}px;
-        animation:  floatUp ${dur}s ${delay}s ease-in-out infinite;
+        left: ${x}%; top: ${y}%;
+        font-size: ${scale}rem;
+        opacity: ${op};
+        --drift: ${drift}px;
+        animation: floatUp ${dur}s ${delay}s ease-in-out infinite;
     `;
 
     stage.appendChild(el);
@@ -312,7 +302,7 @@ function initShare() {
     });
 }
 
-/* ──────────────────────────────────────────────────────────────
-   진입
-   ────────────────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════
+   실행
+   ══════════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', initParticipation);
