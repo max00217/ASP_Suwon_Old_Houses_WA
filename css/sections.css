@@ -262,6 +262,12 @@
     display: flex;
     flex-direction: column;
 }
+.photo-section--full .photo-section__text * {
+    text-shadow:
+        0 0 8px  rgba(0, 0, 0, 0.9),
+        0 0 16px rgba(0, 0, 0, 0.7),
+        0 0 32px rgba(0, 0, 0, 0.5);
+}
 .photo-section--full .chapter-label { color: rgba(245,241,234,0.6); }
 .photo-section--full .chapter-label::before { background: rgba(245,241,234,0.6); }
 .photo-section--full .chapter-title { color: var(--bg); }
