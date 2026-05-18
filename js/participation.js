@@ -15,28 +15,7 @@
 'use strict';
 
 /* ──────────────────────────────────────────────────────────────
-   ★ Firebase 설정값 — 본인 프로젝트 값으로 교체 필요
-   ────────────────────────────────────────────────────────────── */
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAKP2b_cT4PCY8Zqus6NGRG9vkGNcYPCH4",
-  authDomain: "suwon-housing-report.firebaseapp.com",
-  projectId: "suwon-housing-report",
-  storageBucket: "suwon-housing-report.firebasestorage.app",
-  messagingSenderId: "162387866253",
-  appId: "1:162387866253:web:519ad31b1b72d5cf34a8c4"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-/* ──────────────────────────────────────────────────────────────
-   Firebase SDK 임포트 (ESM CDN)
-   index.html의 <script type="module"> 안에서 로드해야 함
+   Firebase SDK (CDN ESM — 이 방식만 사용)
    ────────────────────────────────────────────────────────────── */
 import { initializeApp }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -45,9 +24,21 @@ import {
     onValue, push, serverTimestamp, query, limitToLast
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const app = initializeApp(FIREBASE_CONFIG);
-const db  = getDatabase(app);
+/* ──────────────────────────────────────────────────────────────
+   Firebase 설정값
+   ────────────────────────────────────────────────────────────── */
+const firebaseConfig = {
+    apiKey:            "AIzaSyAKP2b_cT4PCY8Zqus6NGRG9vkGNcYPCH4",
+    authDomain:        "suwon-housing-report.firebaseapp.com",
+    databaseURL:       "https://suwon-housing-report-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId:         "suwon-housing-report",
+    storageBucket:     "suwon-housing-report.firebasestorage.app",
+    messagingSenderId: "162387866253",
+    appId:             "1:162387866253:web:519ad31b1b72d5cf34a8c4"
+};
 
+const app = initializeApp(firebaseConfig);
+const db  = getDatabase(app);
 /* ──────────────────────────────────────────────────────────────
    전역 상태
    ────────────────────────────────────────────────────────────── */
