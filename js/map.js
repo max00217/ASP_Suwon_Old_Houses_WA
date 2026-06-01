@@ -55,7 +55,8 @@ async function initMap() {
       weight: 2.5,
       dashArray: '6 4',
       fillColor: 'transparent',
-      fillOpacity: 0
+      fillOpacity: 0,
+      interactive: false
     }
   }).addTo(map);
   
